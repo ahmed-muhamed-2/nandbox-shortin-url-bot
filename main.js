@@ -1,4 +1,3 @@
-"use strict";
 const NandBox = require("nandbox-bot-api/src/NandBox");
 const Nand = require("nandbox-bot-api/src/NandBoxClient");
 const axios = require("axios");
@@ -47,36 +46,14 @@ nCallBack.onReceive = incomingMsg => {
           .match(regex)[0]
           .replace("<", "")
           .replace(">", "");
+
         api.sendText(chatId, finalUrl);
       })
       .catch(error => {
-        const finalError = error.value
-          .match(regex)[0]
-          .replace("<", "")
-          .replace(">", "");
-        api.sendText(chatId, finalError);
+        api.sendText(chatId, "Your enter not a url");
       });
     // Sending message back as an Echo
   }
 };
-
-// implement other nandbox.Callback() as per your bot need
-nCallBack.onReceiveObj = obj => console.log("received object: ", obj);
-nCallBack.onClose = () => console.log("ONCLOSE");
-nCallBack.onError = () => console.log("ONERROR");
-nCallBack.onChatMenuCallBack = chatMenuCallback => {};
-nCallBack.onInlineMessageCallback = inlineMsgCallback => {};
-nCallBack.onMessagAckCallback = msgAck => {};
-nCallBack.onUserJoinedBot = user => {};
-nCallBack.onChatMember = chatMember => {};
-nCallBack.onChatAdministrators = chatAdministrators => {};
-nCallBack.userStartedBot = user => {};
-nCallBack.onMyProfile = user => {};
-nCallBack.onUserDetails = user => {};
-nCallBack.userStoppedBot = user => {};
-nCallBack.userLeftBot = user => {};
-nCallBack.permanentUrl = permenantUrl => {};
-nCallBack.onChatDetails = chat => {};
-nCallBack.onInlineSearh = inlineSearch => {};
 
 client.connect(TOKEN, nCallBack);
